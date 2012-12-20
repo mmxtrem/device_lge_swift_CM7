@@ -1,0 +1,121 @@
+Release notes for Flash10 Plugin (F10_ANDROID_360.apk) 
+versions 10.3.185.360 for Android Froyo and Gingerbread.
+
+Date: June 3, 2011 (Release Notes rev. 2)
+
+- Release highlights:
+
+    - This release supports the following combinations of the Qualcomm chipsets and Android OS 
+      versions:
+
+        - 7x27T, Android Gingerbread sample version of Flash10 for an Armv6 CPU based device
+
+    - The release is based on the latest Adobe Flash10 plug-in release 10.3.185.21 with
+          the following enhancements:
+
+	- ARMv6 changes were merged into the Flash Player to support 7x27T based devices
+	- The "This video is not optimized for mobile" pops up for everything except H.264 Baseline profile videos.
+	- Flash will request 360p H.264 Baseline videos from Youtube.com
+
+        - Preliminary DCTS tests have been successfully executed.  However, each specific device incorporating Flash10 must
+          pass DCTS testing per Adobe guidelines.  Please refer to Adobes publication Device Certification Guidelines
+          for Adobe Partners, Version 1.5, updated March 11, 2011.
+
+	- for the 7x27T Armv6 device, this Flash APK distribution is meant for evaluation purposes only. 
+
+        - This APK version is intended for use with MSM7x27 based designs running in 
+          Turbo mode only.  Using this APK in non-Turbo mode configurations is not 
+          recommended and cannot be supported by Qualcomm.
+
+        - This APK may not be redistributed. 
+
+        - Qualcomm will not support DCTS failures or other issues with this Flash APK.
+
+        - Qualcomm will provide a release candidate build for Flash Player on MSM 7x27 Turbo 
+          at end of June 2011 which may be used as a candidate for commercialization. 
+
+
+
+
+
+    - The table below shows videos that will be decoded using hardware by this Flash10 Player:
+
+        Chipset     H.264 Videos                   
+        -----------+------------------------------
+        8x60        up to high profile level 4.0 (Note that HW decode is disabled by default for Honeycomb, however this can be enabled by the config file for testing)
+        8x55        up to high profile level 3.1
+        7x27T       up to base profile
+
+- Notes:
+
+    - This revision is intended for evaluation only and must not be used for a commercial device.
+
+    - The Flash10 application package being distributed is signed with test signature and will only
+      run in Android "eng" mode. The Flash10 application package will not run in "user" or "userdebug"
+      mode with the test signature. In order for the Flash application package to run in "user" or
+      "userdebug" mode the package should be signed by Adobe.
+
+    - Including Flash10 in a commerical device may require the execution of the Adobe Flash10
+      Device Complience Test Suite (DCTS) on that device.  Please check with Adobe for details
+      on the DCTS process.
+
+- Performance Tests:
+
+    - There are two configuration choices that will affect the results of Flash10 DCTS Performance 
+      Tests, particularly the ActionScript animation tests.
+
+    - The first setting is v-sync. This controls (limits) the effective display refresh rate, i.e. 
+      how often the frame buffer is copied out the to display. There is a command to turn the 
+      v-sync frame rate limit off, which is described below.
+
+    - The second configuration item is the electrical interface choice to the LCD panel. This can 
+      be either MDDI or LCDC.
+
+      LCDC runs at 60 Hz and no DCTS tests are expected to run over 60 fps.
+      MDDI runs slower and the system cannot keep up with the 60 refreshes per second, 
+      effectively limiting the frame rate to 30 fps.
+
+      Thus, we recommend that:
+
+        - When running these tests for the purpose of measuring processing power, the v-sync should 
+          be turned off.
+
+        - When running these tests as part of the certification's user experience category, the 
+          v-sync should be kept on, but the LCDC mode should be used when possible.
+
+        - When running these tests as part of the certification's user experience category and 
+          if the device under test has only MDDI, you should expect several tests to fail to meet the 
+          Adobe's requirements. However, Adobe should give waiver on these tests, as the device is 
+          effectively limited to 30 fps.
+
+    - Here are the commands for effecting vertical display synchronization (v-sync):
+
+        adb shell setprop debug.gr.swapinterval 0
+        adb shell stop
+        adb shell start
+
+      The v-sync stays turned off until the device is rebooted
+
+- MD5 checksum:
+	ARMv6 10.3.185.360
+	MD5(armv6/install_flash_player.apk)= fc38d5995acd46373d44e21a1ab0a94a
+	MD5(armv6/oem_install_flash_player.apk)= d6dc098d426581650586655661d5c18a
+	MD5(armv6/libflashplayer.so)= ae8194697757cfcd066c1cd278e48e3d
+	MD5(armv6/libstagefright_froyo.so)= ddfc3e1632fa72ae59906c5d3a6973a8
+	MD5(armv6/libstagefright_honeycomb.so)= 0d9ed26e1d0077b586d1920af0412854
+	MD5(armv6/libysshared.so)= 537da7c9a78a020266ce2c65506f198d
+	ARMv6 10.2.157.340
+	MD5(armv6/install_flash_player.apk)= 41a1620e2870f639b2108b40bbe50809
+	MD5(armv6/oem_install_flash_player.apk)= 4e4bd9a134825f84f9bbce04d5e1c3af
+	MD5(armv6/libflashplayer.so)= 6a1e91436ec5169a8a9afa5b6c3aa0da
+	MD5(armv6/libstagefright_froyo.so)= ddfc3e1632fa72ae59906c5d3a6973a8
+	MD5(armv6/libstagefright_honeycomb.so)= fd5d4bb97277965d0b2f29eb98918b71
+	MD5(armv6/libysshared.so)= 537da7c9a78a020266ce2c65506f198d
+        ARMv6 10.2.157.320
+	MD5(Armv6/install_flash_player.apk)= 9cefa7c1cfa46a65f6ea690945fed33c
+	MD5(Armv6/oem_install_flash_player.apk)= dde5dc99dc37a0c9ffd667e1658e4bcf
+	MD5(Armv6/libflashplayer.so)= c5bf9121b5174470d1b47883f9b11b18
+	MD5(Armv6/libstagefright_froyo.so)= ddfc3e1632fa72ae59906c5d3a6973a8
+	MD5(Armv6/libstagefright_honeycomb.so)= fd5d4bb97277965d0b2f29eb98918b71
+	MD5(Armv6/libysshared.so)= 48b1d603d8729f928fccbf3f08d2e41b
+
